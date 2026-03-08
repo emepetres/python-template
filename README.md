@@ -1,4 +1,4 @@
-# python-template Copier template
+# Python Project Copier template
 
 [Copier](https://copier.readthedocs.io/en/stable/) template for bootstrapping Python projects with:
 
@@ -6,19 +6,26 @@
 - `ruff` + `basedpyright` + `codespell` lint/type checks (in generated projects)
 - `pytest` and coverage gate (in generated projects)
 - `pydantic-settings` configuration loading from `dev.env`
+- dynamic versioning from Git tags/commits via `uv-dynamic-versioning` + Hatchling
+- generated project `Makefile` with automated workflows (`make`, `make lint`, `make test`, `make build`, `make clean`)
+- GitHub Actions CI workflow for lint + tests on pushes/PRs
+- CLI entrypoint wiring via `[project.scripts]` and a sample `src/` package layout
+- configurable Python minimum/CI versions through Copier prompts
 
 ## Create a new project
 
-```shell
-uv tool install copier
-copier copy . ../my-new-project
-```
-
-Or from GitHub:
+From GitHub:
 
 ```shell
 uv tool install copier
 copier copy gh:emepetres/python-template ./my-new-project
+```
+
+Or from a local copy of this repository:
+
+```shell
+uv tool install copier
+copier copy . ../my-new-project
 ```
 
 ## Template layout
