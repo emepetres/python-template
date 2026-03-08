@@ -1,0 +1,23 @@
+# {{ project_name }}
+
+{{ project_description }}
+
+## Quick start
+
+```shell
+uv sync --all-extras
+uv run {{ project_name }}
+```
+
+## Common workflows
+
+```shell
+make
+make lint
+make test
+```
+
+## Notes
+
+- Runtime entrypoint: `{{ package_module }}.main()`
+- Configuration: `{{ package_module }}.settings.AppSettings` loaded from `dev.env`

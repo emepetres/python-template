@@ -2,36 +2,34 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
     paths:
-      - "./template/**"
+      - "./src/**"
       - "./tests/**"
-      - "./copier.yml"
+      - "./devtools/**"
       - "./pyproject.toml"
       - "./uv.lock"
       - "./Makefile"
-      - "./.github/workflows/ci.yml"
   pull_request:
-    branches: [main]
+    branches: [main, develop]
     paths:
-      - "./template/**"
+      - "./src/**"
       - "./tests/**"
-      - "./copier.yml"
+      - "./devtools/**"
       - "./pyproject.toml"
       - "./uv.lock"
       - "./Makefile"
-      - "./.github/workflows/ci.yml"
 
 permissions:
   contents: read
 
 jobs:
-  template-checks:
-    name: Template checks
+  quality:
+    name: Code Quality & Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["{{ python_ci_version }}"]
 
     steps:
       - name: Checkout code
@@ -43,18 +41,19 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
+          # Update this as needed:
           version: "0.9.5"
           enable-cache: true
-          python-version: ${{ matrix.python-version }}
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
 
       - name: Set up Python (using uv)
         run: uv python install
 
       - name: Install all dependencies
-        run: uv sync --all-extras
+        run: make install
 
-      - name: Run lint checks
-        run: uv run ruff check tests
+      - name: Run linting
+        run: make lint
 
-      - name: Run template tests
-        run: uv run pytest
+      - name: Run tests with coverage
+        run: make test

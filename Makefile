@@ -1,6 +1,4 @@
-# Makefile for easy development workflows.
-# See development.md for docs.
-# Note GitHub Actions call uv directly, not this Makefile.
+# Makefile for maintaining the Copier template repository.
 
 ifeq ($(OS),Windows_NT)
 SHELL := powershell.exe
@@ -8,7 +6,7 @@ SHELL := powershell.exe
 endif
 .DEFAULT_GOAL := default
 
-.PHONY: default install lint test upgrade build clean
+.PHONY: default install lint test copy-check clean
 
 default: install lint test
 
@@ -16,21 +14,25 @@ install:
 	uv sync --all-extras
 
 lint:
-	uv run python devtools/lint.py
+	uv run ruff check tests
 
 test:
-	uv run coverage run -m pytest
-	uv run coverage report --fail-under=80
+	uv run pytest
 
-upgrade:
-	uv sync --upgrade --all-extras --dev
-
-build:
-	uv build
+copy-check:
+	uv run copier copy --defaults . .tmp-generated
+ifeq ($(OS),Windows_NT)
+	Remove-Item -Recurse -Force .tmp-generated
+else
+	rm -rf .tmp-generated
+endif
 
 clean:
 ifeq ($(OS),Windows_NT)
-	pwsh -NoProfile -File devtools/clean.ps1
+	if (Test-Path .tmp-generated) { Remove-Item -Recurse -Force .tmp-generated }
+	if (Test-Path .pytest_cache) { Remove-Item -Recurse -Force .pytest_cache }
+	if (Test-Path .ruff_cache) { Remove-Item -Recurse -Force .ruff_cache }
+	if (Test-Path .coverage) { Remove-Item -Force .coverage }
 else
-	sh devtools/clean.sh
+	rm -rf .tmp-generated .pytest_cache .ruff_cache .coverage
 endif

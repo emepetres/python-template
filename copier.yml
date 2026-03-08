@@ -1,0 +1,73 @@
+_min_copier_version: "9.4.0"
+_subdirectory: template
+_message_after_copy: |
+    Project created from the python-template Copier template.
+
+    Next steps:
+
+    cd {{ project_name }}
+    git init
+    git add .
+    git commit -m "Initial commit from python-template template"
+    uv sync --all-extras
+    uv run {{ project_name }}
+
+project_name:
+    type: str
+    help: Project/package name (used for repo, package, and CLI command).
+    default: my-python-project
+    validator: >-
+        {% if not (project_name | regex_search('^[A-Za-z][A-Za-z0-9_-]*$')) %}
+        Use letters, digits, dashes, and underscores only. Start with a letter.
+        {% endif %}
+
+package_module:
+    type: str
+    help: Python import module name (snake_case).
+    default: "{{ project_name | lower | replace('-', '_') }}"
+    validator: >-
+        {% if not (package_module | regex_search('^[a-z_][a-z0-9_]*$')) %}
+        Use snake_case (letters, digits, and underscores) and start with a letter/underscore.
+        {% endif %}
+
+project_description:
+    type: str
+    help: Short project description.
+    default: Python project template using copier
+
+author_name:
+    type: str
+    help: Author name.
+    default: Your Name
+
+author_email:
+    type: str
+    help: Author email.
+    default: you@example.com
+    validator: >-
+        {% if not (author_email | regex_search('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')) %}
+        Provide a valid email address.
+        {% endif %}
+
+python_min_version:
+    type: str
+    help: Minimum supported Python version used in pyproject.toml.
+    default: "3.12"
+    validator: >-
+        {% if not (python_min_version | regex_search('^\\d+\\.\\d+$')) %}
+        Use major.minor format, for example 3.12.
+        {% endif %}
+
+python_ci_version:
+    type: str
+    help: Python version used in CI and .python-version.
+    default: "{{ python_min_version }}"
+    validator: >-
+        {% if not (python_ci_version | regex_search('^\\d+\\.\\d+$')) %}
+        Use major.minor format, for example 3.12.
+        {% endif %}
+
+sample_env_value:
+    type: str
+    help: Default value for MY_SAMPLE_VARIABLE in dev.env.
+    default: hello-from-dev-env
