@@ -21,3 +21,14 @@ make test
 
 - Runtime entrypoint: `{{ package_module }}.main()`
 - Configuration: `{{ package_module }}.settings.AppSettings` loaded from `dev.env`
+
+## Template updates
+
+This project was generated from a Copier template. To pull in template changes later, run:
+
+```shell
+uv tool install copier
+copier update
+```
+
+Copier reads template/source metadata from `.copier-answers.yml`, reapplies your answers, and updates files. Review and resolve any conflicts, then run lint/tests.

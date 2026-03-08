@@ -1,7 +1,8 @@
 # AGENTS.md
 
 ## Project overview
-- This is a Python {{ python_min_version }}+ template project with a small CLI entrypoint.
+- This is a Python {{ python_min_version }}+ project with a small CLI entrypoint.
+- This project is generated from a Copier template.
 - Runtime entrypoint is `{{ package_module }}.main()` in `src/{{ package_module }}/__init__.py`.
 - Configuration is managed with `pydantic-settings` in `src/{{ package_module }}/settings.py`, loading values from `dev.env`.
 
@@ -18,7 +19,13 @@
 - Run the app: `uv run {{ project_name }}`
 - Run lint/type checks: `uv run python devtools/lint.py`
 - Run tests with coverage gate: `uv run coverage run -m pytest && uv run coverage report --fail-under=80`
+- Update from the Copier template: `copier update`
 - Run full default workflow: `make` (runs install, lint, test)
+
+## Template updates
+- Copier stores template metadata and prior answers in `.copier-answers.yml`.
+- To refresh this project with newer template changes, run `uv tool install copier && copier update` from the project root.
+- Review and resolve conflicts if prompted, then rerun lint/type checks and tests.
 
 ## Code style and conventions
 - Keep code compatible with Python `>= {{ python_min_version }}`.

@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Project overview
-- This repository provides a Copier template for Python 3.12+ projects.
+- This repository provides a [Copier](https://copier.readthedocs.io/en/stable/) template for Python 3.12+ projects.
 - Copier configuration is in `copier.yml`, and rendered project files are in `template/`.
 - Root code is maintainer-only (template checks), not an application package.
 

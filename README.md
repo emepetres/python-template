@@ -1,6 +1,6 @@
 # python-template Copier template
 
-Copier template for bootstrapping Python projects with:
+[Copier](https://copier.readthedocs.io/en/stable/) template for bootstrapping Python projects with:
 
 - `uv` dependency management
 - `ruff` + `basedpyright` + `codespell` lint/type checks (in generated projects)
@@ -17,7 +17,8 @@ copier copy . ../my-new-project
 Or from GitHub:
 
 ```shell
-copier copy gh:jcarnero/python-template ../my-new-project
+uv tool install copier
+copier copy gh:emepetres/python-template ./my-new-project
 ```
 
 ## Template layout
@@ -54,5 +55,6 @@ make copy-check
 Inside the generated project directory:
 
 ```shell
+uv tool install copier
 copier update
 ```
