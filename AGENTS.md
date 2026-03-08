@@ -1,0 +1,45 @@
+# AGENTS.md
+
+## Project overview
+- This is a Python 3.12+ template project with a small CLI entrypoint.
+- Runtime entrypoint is `python_template.main()` in `src/python_template/__init__.py`.
+- Configuration is managed with `pydantic-settings` in `src/python_template/settings.py`, loading values from `dev.env`.
+
+## Project structure
+- `src/python_template/__init__.py`: main function and logging output.
+- `src/python_template/settings.py`: `AppSettings` and `app_settings` singleton.
+- `tests/main_tests.py`: smoke test for `main()`.
+- `devtools/lint.py`: lint/type pipeline (`codespell`, `ruff`, `basedpyright`).
+- `pyproject.toml`: dependencies, pytest config, and lint/type settings.
+- `Makefile`: common developer workflows.
+
+## Setup and development commands
+- Install dependencies: `uv sync --all-extras`
+- Run the app: `uv run python-template`
+- Run lint/type checks: `uv run python devtools/lint.py`
+- Run tests with coverage gate: `uv run coverage run -m pytest && uv run coverage report --fail-under=80`
+- Run full default workflow: `make` (runs install, lint, test)
+
+## Code style and conventions
+- Keep code compatible with Python `>=3.12`.
+- Use type hints for new or changed code; `basedpyright` checks `src`, `tests`, and `devtools`.
+- Follow Ruff formatting/linting conventions; run lint after edits.
+- Prefer `loguru` logging for runtime messages.
+- For new config, add uppercase fields to `AppSettings` and read via `app_settings`.
+
+## Testing guidance
+- Use `pytest`; test discovery is configured in `pyproject.toml`.
+- Add or update tests for behavior changes (do not only update implementation).
+- Prefer tests without mock frameworks when possible; favor real collaborators or simple fakes/stubs only when needed.
+- Write tests in a TDD-like style: each test should validate one atomic behavior and stay short and easy to read.
+- Ensure coverage stays at or above `80%` (`coverage report --fail-under=80`).
+
+## Configuration and secrets
+- `dev.env` is used for local development settings.
+- Do not commit real secrets; keep only non-sensitive defaults/examples in repository files.
+- Be careful not to log sensitive values.
+
+## Change expectations for agents
+- Keep changes focused and minimal.
+- Prefer modifying existing patterns over introducing new frameworks/tools.
+- Before finishing, run lint/type checks and tests, then fix failures.
