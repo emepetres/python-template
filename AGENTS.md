@@ -31,6 +31,16 @@
 - Prefer real Copier renders in tests instead of mocks.
 - Keep tests short and behavior-focused.
 
+## Adding new template features
+- Treat this repository as a project generator, not a single Python app.
+- Implement feature files/changes inside `template/` as if it were the generated project.
+- If the feature should be optional or configurable, add a corresponding question in `copier.yml`.
+- Use Jinja variables and conditionals in template files for optional files or sections.
+- Add or update `tests/template_copy_tests.py` to verify the rendered output and behavior.
+- Practical mapping:
+  - In a normal project you would edit `src/...`; here edit `template/src/...`.
+  - In a normal project you would add runtime config directly; here add template questions in `copier.yml` and render logic in `template/`.
+
 ## Configuration and secrets
 - Do not commit real secrets; keep only non-sensitive defaults/examples in template files.
 - Be careful not to introduce generated values with secrets in tracked files.
