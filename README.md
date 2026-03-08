@@ -65,3 +65,7 @@ Inside the generated project directory:
 uv tool install copier
 copier update
 ```
+
+## Inspiration
+
+This template is inspired by [simple-modern-uv](https://github.com/jlevy/simple-modern-uv).
