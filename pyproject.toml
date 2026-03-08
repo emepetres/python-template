@@ -9,7 +9,8 @@ requires-python = ">=3.12"
 dynamic = ["version"]
 
 dependencies = [
-    "loguru>=0.7.3"
+    "loguru>=0.7.3",
+    "pydantic-settings>=2.11.0"
 ]
 
 [dependency-groups]
@@ -51,7 +52,7 @@ bump = true
 
 [tool.hatch.build.targets.wheel]
 # The source location for the package.
-packages = ["src/who_does_what_api"]
+packages = ["src/python_template"]
 
 # ---- Settings ----
 
